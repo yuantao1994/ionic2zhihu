@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title *ngIf="themeNews">{{themeNews.name}}</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-list class="getting-started" *ngIf="themeNews">
+    <ion-item-divider color="light">
+      <ion-avatar item-left *ngFor="let editor of themeNews.editors">
+        <img src="{{editor.avatar}}">
+      </ion-avatar>
+    </ion-item-divider>
+
+    <ion-item *ngFor="let story of themeNews.stories" (click)="storyShow( story)">
+      <ion-thumbnail item-right>
+        <img *ngIf="story.images" src="{{story.images[0]}}">
+      </ion-thumbnail>
+      <p text-wrap>{{story.title}}</p>
+    </ion-item>
+
+  </ion-list>
+</ion-content>

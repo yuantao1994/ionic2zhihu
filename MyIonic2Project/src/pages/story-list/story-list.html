@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>{{title}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding class="card-background-page">
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" refreshingSpinner="circles">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <ion-slides #mySlider pager style="height: 240px" *ngIf="topStories">
+    <ion-slide *ngFor="let story of topStories" (click)="storyShow( story)">
+      <img src="{{story.image}}" alt="">
+      <div class="slide-title">{{story.title}}</div>
+    </ion-slide>
+  </ion-slides>
+
+  <ion-list class="getting-started">
+
+    <ion-item-group *ngIf="stories">
+      <ion-item *ngFor="let story of stories" (click)="storyShow( story)">
+        <ion-thumbnail item-right>
+          <img src="{{story.images[0]}}">
+        </ion-thumbnail>
+        <p text-wrap>{{story.title}}</p>
+      </ion-item>
+    </ion-item-group>
+
+    <ion-item-group *ngFor="let list of oldNews">
+      <ion-item-divider style="background-color: #387ef5;color: #ccc" full text-center>
+        {{list.date}}
+      </ion-item-divider>
+      <ion-item *ngFor="let story of list.stories" (click)="storyShow( story)">
+        <ion-thumbnail item-right>
+          <img src="{{story.images[0]}}">
+        </ion-thumbnail>
+        <p text-wrap>{{story.title}}</p>
+      </ion-item>
+    </ion-item-group>
+  </ion-list>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载中...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
